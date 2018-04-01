@@ -50,13 +50,14 @@ class Distribution(object):
 
     def plot(self, canvas, ax=None, colors='Reds', nlines=100, alpha=None):
         if ax is None:
-            ax = plt.gca()
+            fig, ax = plt.subplots(1, 1)
         density = self.pdf(canvas.Z)
 
         cset = ax.contour(canvas.X, canvas.Y, density,
                           levels=np.linspace(density.min(),
                                              density.max(), nlines),
                           cmap=getattr(cm, colors), alpha=alpha)
+        plt.show()
         return cset
 
 
@@ -231,6 +232,14 @@ class GMM(Distribution):
         else:
             raise NotImplemented
 
+    @staticmethod
+    def product(factors):
+        # multiplying the elements of a list
+        result = None
+        for factor in factors:
+            result *= factor
+        return result
+
 
 class Beads(GMM):
     def __init__(self, mu, b, sigma, weights):
@@ -275,9 +284,10 @@ class Canvas:
 
     def plot(self, ax=None, colors='Reds', nlines=100):
         if ax is None:
-            ax = plt.gca()
+            fig, ax = plt.subplots(1, 1)
         cset = ax.contour(self.X, self.Y, self.canvas,
                           levels=np.linspace(self.canvas.min(),
                                              self.canvas.max(), nlines),
                           cmap=getattr(cm, colors))
+        plt.draw()
         return cset
