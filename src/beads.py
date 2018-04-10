@@ -1,11 +1,11 @@
 import numpy as np
 from scipy.special import erf
 from scipy.stats import norm
-from matplotlib import cm
 import numbers
 from copy import copy
 from itertools import product
-from matplotlib import pylab as plt
+import matplotlib.pyplot as plt
+from matplotlib import patches
 
 
 def cgauss(x, mu, sigma):
@@ -48,17 +48,19 @@ class Distribution(object):
                                   'by anything else than a number, for '
                                   'the purpose of assigning a weight.')
 
-    def plot(self, canvas, ax=None, colors='Reds', nlines=100, alpha=None):
+    def contour(self, canvas, ax=None, nlines=20, **kwargs):
         if ax is None:
-            fig, ax = plt.subplots(1, 1)
+            fig, ax = canvas.fig()
         density = self.pdf(canvas.Z)
-
-        cset = ax.contour(canvas.X, canvas.Y, density,
-                          levels=np.linspace(density.min(),
-                                             density.max(), nlines),
-                          cmap=getattr(cm, colors), alpha=alpha)
+        levels = np.linspace(density.min(), density.max(), nlines)
+        ax.contour(canvas.X, canvas.Y, density,
+                   levels=levels,
+                   **kwargs)
         plt.show()
-        return cset
+
+    def draw(self, num):
+        # will draw num samples from the distribution
+        pass
 
 
 class Bead(Distribution):
@@ -78,6 +80,19 @@ class Bead(Distribution):
         result = Bead(self.mu, self.sigma)
         result.weight = self.weight
         return result
+
+    def draw(self, num):
+        # draws samples from the isotropic gaussian
+        return ((np.random.randn(num)+1j*np.random.randn(num)
+                * np.sqrt(self.sigma) + self.mu))
+
+    def plot(self, canvas, ax, color, **kwargs):
+        if self.sigma is not None:
+            Canvas.circle(ax, self.mu, np.sqrt(self.sigma), color=color,
+                          linewidth=3, fill=True, alpha=0.3, **kwargs)
+        ax.plot(np.real(self.mu), np.imag(self.mu), 'o',
+                markersize=20, color=color)
+        plt.show()
 
     @staticmethod
     def fromBeads(references):
@@ -115,6 +130,11 @@ class Donut(Distribution):
         result = Donut(self.mu, self.b, self.sigma)
         result.weight = self.weight
         return result
+
+    def draw(self, num):
+        phases = np.random.rand(num)*2*np.pi
+        radius = np.random.randn(num)*np.sqrt(self.sigma)+self.b
+        return radius * np.exp(1j*phases)
 
 
 class GMM(Distribution):
@@ -171,10 +191,22 @@ class GMM(Distribution):
         result.components = [comp for comp in self.components]
         return result
 
+    def draw(self, num):
+        # get the weights
+        weights = [comp.weight for comp in self.components]
+        weights /= weights.sum()
+        # draw the random selection of the components according to weights
+        select = np.random.multinomial(1, weights, num)
+        # build the result
+        result = np.empty((num,))
+        for i, comp in enumerate(self.components):
+            indices = np.nonzero(select[:, i])
+            result[indices] = comp.draw(len(indices))
+        return result
+
     def __mul__(self, other):
         if other is None:
             return self
-
         if not isinstance(other, (GMM, Beads)):
             raise ArithmeticError('Can only multiply GMM with GMM')
         if other in self.product_of:
@@ -208,29 +240,31 @@ class GMM(Distribution):
             return copy(self)
 
         result = GMM()
-        if all([isinstance(x, Beads) for x in mix.product_of]):
-            # the case where the mix is a sum of Beads objects
-            total_weight = 0
-            for xcomp in mix.components:
-                scomp = [c for c in self.components if c in xcomp.references]
-                if len(scomp) != 1:
-                    raise IndexError('One mix component featured no unique'
-                                     'Bead object from the source as'
-                                     'reference')
-                scomp = scomp[0]
-                sigmas = scomp.sigma
-                sigmax = xcomp.sigma
-                G = sigmas/sigmax
 
-                pi_post = scomp.weight * xcomp.pdf(x)
-                result += pi_post * Bead(scomp.mu+G*(x-xcomp.mu),
-                                         sigmas*(1-G))
-                total_weight += pi_post
-            for comp in result.components:
-                comp.weight /= total_weight
-            return result
-        else:
-            raise NotImplemented
+        # We handle here the general case where the sources are general GMMs
+        total_weight = 0
+        for xcomp in mix.components:
+            scomp = [c for c in self.components if c in xcomp.references]
+            if len(scomp) != 1:
+                raise IndexError('One mix component featured no unique'
+                                 'Bead object from the source as'
+                                 'reference')
+            scomp = scomp[0]
+            sigmas = scomp.sigma
+            sigmax = xcomp.sigma
+            G = sigmas/sigmax
+
+            pi_post = scomp.weight * xcomp.pdf(x)
+            result += pi_post * Bead(scomp.mu+G*(x-xcomp.mu),
+                                     sigmas*(1-G))
+            total_weight += pi_post
+        for comp in result.components:
+            comp.weight /= total_weight
+        return result
+
+    def plot(self, canvas, ax, color):
+        for comp in self.components:
+            comp.plot(canvas, ax, color)
 
     @staticmethod
     def product(factors):
@@ -254,40 +288,87 @@ class Beads(GMM):
 
 
 class Canvas:
-    def __init__(self, min, max, N):
-        self.N = N
-        self.min = min
-        self.max = max
+    def __init__(self, minx, maxx, Nx, miny, maxy, Ny):
+        self.Nx = Nx
+        self.Ny = Ny
+        self.minx = minx
+        self.maxx = maxx
+        self.miny = miny
+        self.maxy = maxy
 
         # create a meshgrid
-        X = np.linspace(min, max, N)
-        Y = np.linspace(min, max, N)
+        X = np.linspace(minx, maxx, Nx)
+        Y = np.linspace(miny, maxy, Ny)
         self.X, self.Y = np.meshgrid(X, Y)
         self.Z = self.X + 1j*self.Y
 
-        # create the canvas of given dimensions
-        self.clear()
+    def fig(self, subplots=1):
+        (fig, ax) = plt.subplots(1, subplots)
+        self.clear(ax)
+        fig.show()
+        return (fig, ax)
 
-    def clear(self):
-        # Create canvas
-        self.canvas = np.zeros((self.N, self.N))
+    def ax(self, title='Figure'):
+        fig, ax = self.fig()
+        return ax
 
-    def __add__(self, other):
-        if isinstance(other, Distribution):
-            self.canvas += other.pdf(self.Z)
-        elif isinstance(other, Canvas):
-            self.canvas += other.canvas
+    def clear(self, ax):
+        if not isinstance(ax, np.ndarray):
+            ax = [ax]
+        for a in ax:
+            a.clear()
+            a.set_xlim([self.minx, self.maxx])
+            a.set_ylim([self.miny, self.maxy])
+            a.set_xlabel('Real part', fontsize=13)
+            a.set_ylabel('Imaginary part', fontsize=13)
+            a.grid(True)
+
+    """def plot(self, distributions, ax, colors=None, **kwargs):
+        if not isinstance(distributions, list):
+            distributions = [distributions]
+        if colors is not None:
+            for (dist, color) in zip(distributions, colors):
+                dist.plot(self, ax, color, **kwargs)
         else:
-            raise ArithmeticError('Can only add Distribution or Canvas '
-                                  'objects (of the same size) to Canvas.')
-        return self
+            for dist in distributions:
+                dist.plot(self, ax, **kwargs)"""
 
-    def plot(self, ax=None, colors='Reds', nlines=100):
+    @staticmethod
+    def circle(ax, center, radius, color, **kwargs):
+        ax.add_artist(patches.Circle((np.real(center), np.imag(center)),
+                                     radius, facecolor=color,
+                                     edgecolor=color, **kwargs))
+        plt.show()
+
+    """def circles(self, ax, centers, radius, colors, **kwargs):
         if ax is None:
-            fig, ax = plt.subplots(1, 1)
-        cset = ax.contour(self.X, self.Y, self.canvas,
-                          levels=np.linspace(self.canvas.min(),
-                                             self.canvas.max(), nlines),
-                          cmap=getattr(cm, colors))
-        plt.draw()
-        return cset
+            ax = self.ax()
+        if isinstance(radius, numbers.Number):
+            radius = [radius]
+        if isinstance(centers, numbers.Number):
+            centers = [centers] * len(radius)
+        for (center, rad, color) in zip(centers, radius, colors):
+            self.circle(ax, center, rad, color, **kwargs)"""
+
+    @staticmethod
+    def arrow(ax, start, delta, **kwargs):
+        h = ax.arrow(np.real(start), np.imag(start), np.real(delta),
+                     np.imag(delta), head_width=1,
+                     head_length=1, length_includes_head=True, **kwargs)
+        plt.show()
+        return h
+
+    """@staticmethod
+    def arrows(ax, starts, deltas, colors, **kwargs):
+        h = []
+        for start, delta, color in zip(starts, deltas, colors):
+            h += [Canvas.arrow(ax, start, delta, color=color(200), **kwargs)]
+        return h"""
+
+    @staticmethod
+    def text(ax, pos, text):
+        ax.text(np.real(pos), np.imag(pos), text, fontsize=13)
+
+    @staticmethod
+    def connect(fig, fn):
+        return fig.canvas.mpl_connect('button_press_event', fn)
