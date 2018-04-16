@@ -9,14 +9,14 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
 
-<title>Audio source separation with magnitude priors: the BEADS model</title>
+<title>presentation-nocode slides</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <!-- General and theme style sheets -->
-<link rel="stylesheet" href="reveal.js/css/reveal.css">
-<link rel="stylesheet" href="reveal.js/css/theme/simple.css" id="theme">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/css/reveal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/css/theme/simple.css" id="theme">
 
 <!-- If the query includes 'print-pdf', include the PDF print sheet -->
 <script>
@@ -24,14 +24,14 @@ if( window.location.search.match( /print-pdf/gi ) ) {
         var link = document.createElement( 'link' );
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = 'reveal.js/css/print/pdf.css';
+        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/css/print/pdf.css';
         document.getElementsByTagName( 'head' )[0].appendChild( link );
 }
 
 </script>
 
 <!--[if lt IE 9]>
-<script src="reveal.js/lib/js/html5shiv.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/lib/js/html5shiv.js"></script>
 <![endif]-->
 
 <!-- Loading the mathjax macro -->
@@ -8507,15 +8507,15 @@ label {
 }
 /* Flexible box model classes */
 /* Taken from Alex Russell http://infrequently.org/2009/08/css-3-progress/ */
-/* This file is a compatability layer.  It allows the usage of flexible box
+/* This file is a compatability layer.  It allows the usage of flexible box 
 model layouts accross multiple browsers, including older browsers.  The newest,
 universal implementation of the flexible box model is used when available (see
-`Modern browsers` comments below).  Browsers that are known to implement this
+`Modern browsers` comments below).  Browsers that are known to implement this 
 new spec completely include:
 
     Firefox 28.0+
     Chrome 29.0+
-    Internet Explorer 11+
+    Internet Explorer 11+ 
     Opera 17.0+
 
 Browsers not listed, including Safari, are supported via the styling under the
@@ -11289,7 +11289,7 @@ div#pager .ui-resizable-handle {
   background: #f7f7f7;
   border-top: 1px solid #cfcfcf;
   border-bottom: 1px solid #cfcfcf;
-  /* This injects handle bars (a short, wide = symbol) for
+  /* This injects handle bars (a short, wide = symbol) for 
         the resize handle. */
 }
 div#pager .ui-resizable-handle::after {
@@ -11732,7 +11732,7 @@ ul.typeahead-list > li > a {
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
 <style type="text/css">
-
+    
 /* Temporary definitions which will become obsolete with Notebook release 5.0 */
 .ansi-black-fg { color: #3E424D; }
 .ansi-black-bg { background-color: #3E424D; }
@@ -11981,7 +11981,7 @@ $^3$ Inria Rennes - Bretagne Atlantique, France<p></p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The mixture is Gaussian $x\sim\mathcal{N}\left(0,\sum_j b_j^2\right)$, sources are recovered as: $s\mid x\sim \mathcal{N}\left(\frac{b^2_j}{\sum b^2} x, b_j^2\left(1 - \frac{b_j^2}{\sum b^2}\right)\right)$
+<p>The mixture is Gaussian $x\sim\mathcal{N}\left(0,\sum_j b_j^2\right)$, sources are recovered as: $s\mid x\sim \mathcal{N}\left(\frac{b^2_j}{\sum b^2} x, \sigma_j^2\left(1 - \frac{b_j^2}{\sum b^2}\right)\right)$
 <img src="figures/nocode/fig_lgmdemo1.svg"></p>
 
 </div>
@@ -11991,7 +11991,7 @@ $^3$ Inria Rennes - Bretagne Atlantique, France<p></p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The mixture is Gaussian $x\sim\mathcal{N}\left(0,\sum_j b_j^2\right)$, sources are recovered as: $s\mid x\sim \mathcal{N}\left(\frac{b^2_j}{\sum b^2} x, b_j^2\left(1 - \frac{b_j^2}{\sum b^2}\right)\right)$
+<p>The mixture is Gaussian $x\sim\mathcal{N}\left(0,\sum_j \sigma_j\right)$, sources are recovered as: $s\mid x\sim \mathcal{N}\left(\frac{\sigma_j}{\sum \sigma} x, \sigma_j - \frac{\sigma_j^2}{\sum \sigma}\right)$
 <img src="figures/nocode/fig_lgmdemo2.svg"></p>
 
 </div>
@@ -12001,7 +12001,7 @@ $^3$ Inria Rennes - Bretagne Atlantique, France<p></p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The mixture is Gaussian $x\sim\mathcal{N}\left(0,\sum_j b_j^2\right)$, sources are recovered as: $s\mid x\sim \mathcal{N}\left(\frac{b^2_j}{\sum b^2} x, b_j^2\left(1 - \frac{b_j^2}{\sum b^2}\right)\right)$
+<p>The mixture is Gaussian $x\sim\mathcal{N}\left(0,\sum_j b_j^2\right)$, sources are recovered as: $s\mid x\sim \mathcal{N}\left(\frac{b^2_j}{\sum b^2} x, \sigma_j^2\left(1 - \frac{b_j^2}{\sum b^2}\right)\right)$
 <img src="figures/nocode/fig_lgmdemo3.svg"></p>
 
 </div>
@@ -12011,7 +12011,7 @@ $^3$ Inria Rennes - Bretagne Atlantique, France<p></p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The mixture is Gaussian $x\sim\mathcal{N}\left(0,\sum_j b_j^2\right)$, sources are recovered as: $s\mid x\sim \mathcal{N}\left(\frac{b^2_j}{\sum b^2} x, b_j^2\left(1 - \frac{b_j^2}{\sum b^2}\right)\right)$
+<p>The mixture is Gaussian $x\sim\mathcal{N}\left(0,\sum_j \sigma_j\right)$, sources are recovered as: $s\mid x\sim \mathcal{N}\left(\frac{\sigma_j}{\sum \sigma} x, \sigma_j - \frac{\sigma_j^2}{\sum \sigma}\right)$
 <img src="figures/nocode/fig_lgmdemo4.svg">
 $\Rightarrow$ Aligned estimated sources, magnitudes inconsistent with prior<p>
 $\Rightarrow$ Uncertainty independent of the mixture</p>
@@ -12291,8 +12291,8 @@ require(
       waitSeconds: 15
     },
     [
-      "reveal.js/lib/js/head.min.js",
-      "reveal.js/js/reveal.js"
+      "https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/lib/js/head.min.js",
+      "https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/js/reveal.js"
     ],
 
     function(head, Reveal){
@@ -12307,9 +12307,9 @@ require(
 
             // Optional libraries used to extend on reveal.js
             dependencies: [
-                { src: "reveal.js/lib/js/classList.js",
+                { src: "https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/lib/js/classList.js",
                   condition: function() { return !document.body.classList; } },
-                { src: "reveal.js/plugin/notes/notes.js",
+                { src: "https://cdn.jsdelivr.net/npm/reveal.js@3.6.0/plugin/notes/notes.js",
                   async: true,
                   condition: function() { return !!document.body.classList; } }
             ]
