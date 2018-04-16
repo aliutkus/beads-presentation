@@ -3,6 +3,17 @@ Presentation for the paper `Audio source separation with magnitude priors: the B
 
 The presentation is available [online](https://aliutkus.github.io/beads-presentation/)
 
+## References
+If you are using this model or this stuff for your research, please mention the following paper:
+> @inproceedings{liutkus2018beads,
+>  title={Audio source separation with magnitude priors: the BEADS model},
+>  author={Liutkus, Antoine and Rohlfing, Christian and Deleforge, Antoine},
+>  booktitle={International Conference on Acoustics, Speech, and Signal Processing (ICASSP)},
+>  year={2018}
+}
+
+The paper is available as a PDF [here](https://hal.inria.fr/hal-01713886/document)
+
 ## Installation for the source code
 Through conda:
 > conda env create -f environment.yml
