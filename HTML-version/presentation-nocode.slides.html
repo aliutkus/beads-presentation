@@ -8507,15 +8507,15 @@ label {
 }
 /* Flexible box model classes */
 /* Taken from Alex Russell http://infrequently.org/2009/08/css-3-progress/ */
-/* This file is a compatability layer.  It allows the usage of flexible box 
+/* This file is a compatability layer.  It allows the usage of flexible box
 model layouts accross multiple browsers, including older browsers.  The newest,
 universal implementation of the flexible box model is used when available (see
-`Modern browsers` comments below).  Browsers that are known to implement this 
+`Modern browsers` comments below).  Browsers that are known to implement this
 new spec completely include:
 
     Firefox 28.0+
     Chrome 29.0+
-    Internet Explorer 11+ 
+    Internet Explorer 11+
     Opera 17.0+
 
 Browsers not listed, including Safari, are supported via the styling under the
@@ -11289,7 +11289,7 @@ div#pager .ui-resizable-handle {
   background: #f7f7f7;
   border-top: 1px solid #cfcfcf;
   border-bottom: 1px solid #cfcfcf;
-  /* This injects handle bars (a short, wide = symbol) for 
+  /* This injects handle bars (a short, wide = symbol) for
         the resize handle. */
 }
 div#pager .ui-resizable-handle::after {
@@ -11732,7 +11732,7 @@ ul.typeahead-list > li > a {
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
 <style type="text/css">
-    
+
 /* Temporary definitions which will become obsolete with Notebook release 5.0 */
 .ansi-black-fg { color: #3E424D; }
 .ansi-black-bg { background-color: #3E424D; }
@@ -11950,6 +11950,10 @@ $^3$ Inria Rennes - Bretagne Atlantique, France<p></p>
 <li><strong>Filtering</strong> from magnitude estimates $b_j&gt;0$ to separated signals $s_j\in\mathbb{C}$ </li>
 <li>Tractable model for <strong>complex variables $s_j$ with (approximately) known magnitude $b_j$</strong></li>
 </ul>
+<h2 id="In-the-paper">In the paper<a class="anchor-link" href="#In-the-paper">&#182;</a></h2><ul>
+<li>The multichannel case</li>
+<li>Evaluation for audio coding</li>
+</ul>
 
 </div>
 </div>
@@ -11958,7 +11962,7 @@ $^3$ Inria Rennes - Bretagne Atlantique, France<p></p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The classical Gaussian model $s_j\sim\mathcal{N}\left(0, \sigma_j^2=2 b_j^2/\pi\right)$ matches the prior $\mathbb{E}\left[\left|s_j\right|\right]=b_j$</p>
+<p>The classical Gaussian model $s_j\sim\mathcal{N}\left(0, \frac{2}{\pi}b_j^2\right)$ matches the prior $\mathbb{E}\left[\left|s_j\right|\right]=b_j$</p>
 <p><img src="figures/nocode/fig_lgm.svg"></p>
 
 </div>
@@ -11977,7 +11981,7 @@ $^3$ Inria Rennes - Bretagne Atlantique, France<p></p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The mixture is Gaussian $x\sim\mathcal{N}\left(0,\sum_j \sigma_j\right)$, sources are recovered as: $s\mid x\sim \mathcal{N}\left(\frac{\sigma_j}{\sum \sigma} x, \sigma_j - \frac{\sigma_j^2}{\sum \sigma}\right)$
+<p>The mixture is Gaussian $x\sim\mathcal{N}\left(0,\sum_j b_j^2\right)$, sources are recovered as: $s\mid x\sim \mathcal{N}\left(\frac{b^2_j}{\sum b^2} x, b^2_j\left(1 - \frac{b_j^2}{\sum b^2}\right)\right)$
 <img src="figures/nocode/fig_lgmdemo1.svg"></p>
 
 </div>
@@ -11987,7 +11991,7 @@ $^3$ Inria Rennes - Bretagne Atlantique, France<p></p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The mixture is Gaussian $x\sim\mathcal{N}\left(0,\sum_j \sigma_j\right)$, sources are recovered as: $s\mid x\sim \mathcal{N}\left(\frac{\sigma_j}{\sum \sigma} x, \sigma_j - \frac{\sigma_j^2}{\sum \sigma}\right)$
+<p>The mixture is Gaussian $x\sim\mathcal{N}\left(0,\sum_j b^2_j\right)$, sources are recovered as: $s\mid x\sim \mathcal{N}\left(\frac{b^2_j}{\sum b^2} x, b^2_j\left(1 - \frac{b_j^2}{\sum b^2}\right)\right)$
 <img src="figures/nocode/fig_lgmdemo2.svg"></p>
 
 </div>
@@ -11997,7 +12001,7 @@ $^3$ Inria Rennes - Bretagne Atlantique, France<p></p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The mixture is Gaussian $x\sim\mathcal{N}\left(0,\sum_j \sigma_j\right)$, sources are recovered as: $s\mid x\sim \mathcal{N}\left(\frac{\sigma_j}{\sum \sigma} x, \sigma_j - \frac{\sigma_j^2}{\sum \sigma}\right)$
+<p>The mixture is Gaussian $x\sim\mathcal{N}\left(0,\sum_j b_j^2\right)$, sources are recovered as: $s\mid x\sim \mathcal{N}\left(\frac{b^2_j}{\sum b^2} x, b^2_j\left(1 - \frac{b_j^2}{\sum b^2}\right)\right)$
 <img src="figures/nocode/fig_lgmdemo3.svg"></p>
 
 </div>
@@ -12007,22 +12011,14 @@ $^3$ Inria Rennes - Bretagne Atlantique, France<p></p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The mixture is Gaussian $x\sim\mathcal{N}\left(0,\sum_j \sigma_j\right)$, sources are recovered as: $s\mid x\sim \mathcal{N}\left(\frac{\sigma_j}{\sum \sigma} x, \sigma_j - \frac{\sigma_j^2}{\sum \sigma}\right)$
-<img src="figures/nocode/fig_lgmdemo4.svg"></p>
+<p>The mixture is Gaussian $x\sim\mathcal{N}\left(0,\sum_j b^2_j\right)$, sources are recovered as: $s\mid x\sim \mathcal{N}\left(\frac{b^2_j}{\sum b^2} x, b^2_j\left(1 - \frac{b_j^2}{\sum b^2}\right)\right)$
+<img src="figures/nocode/fig_lgmdemo4.svg">
+$\Rightarrow$ Aligned estimated sources, magnitudes inconsistent with prior<p>
+$\Rightarrow$ Uncertainty independent of the mixture</p>
 
 </div>
 </div>
-</div><div class="fragment">
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>$\Rightarrow$ Aligned estimated sources, magnitudes inconsistent with prior<p>
-$\Rightarrow$ Over-estimate the strongest source, under-estimate the others</p>
-
-</div>
-</div>
-</div></div></section></section><section><section>
+</div></section></section><section><section>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
 <div class="inner_cell">
@@ -12071,8 +12067,8 @@ $\hat{s}_j=\frac{b_j}{\sum b}x$
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$\Rightarrow$ More balanced source estimates<p>
-$\Rightarrow$ Still estimating aligned sources rather than complying with the magnitude prior</p>
+$\Rightarrow$ Still estimating aligned sources rather than complying with the magnitude prior<p>
+$\Rightarrow$ No tractable uncertainty</p>
 
 </div>
 </div>
@@ -12126,12 +12122,10 @@ $\Rightarrow$ Still estimating aligned sources rather than complying with the ma
 </div><div class="fragment">
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div>
-<div class="inner_cell">
+<div class="inner_cell", style="margin=0pt">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>No model for the mixture</li>
-<li>No easy way for inference</li>
-</ul>
+$\Rightarrow$ No model for the sum of donut variables<p>
+$\Rightarrow$ No easy way for separation: $\mathbb{P}\left[s\mid x\right]$ non tractable</p>
 
 </div>
 </div>
@@ -12140,7 +12134,9 @@ $\Rightarrow$ Still estimating aligned sources rather than complying with the ma
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Contribution">Contribution<a class="anchor-link" href="#Contribution">&#182;</a></h1><h2 id="BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape"><strong>BEADS</strong> Bayesian Expansion to Approximate the Donut Shape<a class="anchor-link" href="#BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape">&#182;</a></h2><p><img src="figures/nocode/fig_beadsintro1.svg"></p>
+<h1 id="Contribution">Contribution<a class="anchor-link" href="#Contribution">&#182;</a></h1><h2 id="BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape"><strong>BEADS</strong> Bayesian Expansion to Approximate the Donut Shape<a class="anchor-link" href="#BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape">&#182;</a></h2><p><img src="figures/nocode/fig_beadsintro1.svg">
+Sources distribution as a Gaussian Mixture Model: $P\left[s_j\right] = \sum_c \pi[c] \mathcal{N}\left(s_j\mid b_j \omega^c, \sigma_j\right)$<p>
+$\Rightarrow$ Only two parameters: $b_j$ and $\sigma_j$</p>
 
 </div>
 </div>
@@ -12149,7 +12145,9 @@ $\Rightarrow$ Still estimating aligned sources rather than complying with the ma
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Contribution">Contribution<a class="anchor-link" href="#Contribution">&#182;</a></h1><h2 id="BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape"><strong>BEADS</strong> Bayesian Expansion to Approximate the Donut Shape<a class="anchor-link" href="#BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape">&#182;</a></h2><p><img src="figures/nocode/fig_beadsintro2.svg"></p>
+<h1 id="Contribution">Contribution<a class="anchor-link" href="#Contribution">&#182;</a></h1><h2 id="BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape"><strong>BEADS</strong> Bayesian Expansion to Approximate the Donut Shape<a class="anchor-link" href="#BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape">&#182;</a></h2><p><img src="figures/nocode/fig_beadsintro2.svg">
+Sources distribution as a Gaussian Mixture Model: $P\left[s_j\right] = \sum_c \pi[c] \mathcal{N}\left(s_j\mid b_j \omega^c, \sigma_j\right)$<p>
+$\Rightarrow$ Only two parameters: $b_j$ and $\sigma_j$</p>
 
 </div>
 </div>
@@ -12158,7 +12156,9 @@ $\Rightarrow$ Still estimating aligned sources rather than complying with the ma
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Contribution">Contribution<a class="anchor-link" href="#Contribution">&#182;</a></h1><h2 id="BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape"><strong>BEADS</strong> Bayesian Expansion to Approximate the Donut Shape<a class="anchor-link" href="#BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape">&#182;</a></h2><p><img src="figures/nocode/fig_beadsintro3.svg"></p>
+<h1 id="Contribution">Contribution<a class="anchor-link" href="#Contribution">&#182;</a></h1><h2 id="BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape"><strong>BEADS</strong> Bayesian Expansion to Approximate the Donut Shape<a class="anchor-link" href="#BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape">&#182;</a></h2><p><img src="figures/nocode/fig_beadsintro3.svg">
+Sources distribution as a Gaussian Mixture Model: $P\left[s_j\right] = \sum_c \pi[c] \mathcal{N}\left(s_j\mid b_j \omega^c, \sigma_j\right)$<p>
+$\Rightarrow$ Only two parameters: $b_j$ and $\sigma_j$</p>
 
 </div>
 </div>
@@ -12167,7 +12167,9 @@ $\Rightarrow$ Still estimating aligned sources rather than complying with the ma
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Contribution">Contribution<a class="anchor-link" href="#Contribution">&#182;</a></h1><h2 id="BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape"><strong>BEADS</strong> Bayesian Expansion to Approximate the Donut Shape<a class="anchor-link" href="#BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape">&#182;</a></h2><p><img src="figures/nocode/fig_beadsintro4.svg"></p>
+<h1 id="Contribution">Contribution<a class="anchor-link" href="#Contribution">&#182;</a></h1><h2 id="BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape"><strong>BEADS</strong> Bayesian Expansion to Approximate the Donut Shape<a class="anchor-link" href="#BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape">&#182;</a></h2><p><img src="figures/nocode/fig_beadsintro4.svg">
+Sources distribution as a Gaussian Mixture Model: $P\left[s_j\right] = \sum_c \pi[c] \mathcal{N}\left(s_j\mid b_j \omega^c, \sigma_j\right)$<p>
+$\Rightarrow$ Only two parameters: $b_j$ and $\sigma_j$</p>
 
 </div>
 </div>
@@ -12176,7 +12178,9 @@ $\Rightarrow$ Still estimating aligned sources rather than complying with the ma
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Contribution">Contribution<a class="anchor-link" href="#Contribution">&#182;</a></h1><h2 id="BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape"><strong>BEADS</strong> Bayesian Expansion to Approximate the Donut Shape<a class="anchor-link" href="#BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape">&#182;</a></h2><p><img src="figures/nocode/fig_beadsintro5.svg"></p>
+<h1 id="Contribution">Contribution<a class="anchor-link" href="#Contribution">&#182;</a></h1><h2 id="BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape"><strong>BEADS</strong> Bayesian Expansion to Approximate the Donut Shape<a class="anchor-link" href="#BEADS-Bayesian-Expansion-to-Approximate-the-Donut-Shape">&#182;</a></h2><p><img src="figures/nocode/fig_beadsintro5.svg">
+Sources distribution as a Gaussian Mixture Model: $P\left[s_j\right] = \sum_c \pi[c] \mathcal{N}\left(s_j\mid b_j \omega^c, \sigma_j\right)$<p>
+$\Rightarrow$ Only two parameters: $b_j$ and $\sigma_j$</p>
 
 </div>
 </div>
@@ -12226,7 +12230,9 @@ $\Rightarrow$ Still estimating aligned sources rather than complying with the ma
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The sources are estimated through Bayes theorem as $s\mid x=\sum_c \pi(c\mid x)\mathcal{N}(s\mid \mu_{c\mid x}, \sigma_{\mid x})$
-<img src="figures/nocode/fig_beadsdemo2.svg"></p>
+<img src="figures/nocode/fig_beadsdemo2.svg">
+$\Rightarrow$ Posterior is tractable, estimates consistent with the magnitude prior<p>
+$\Rightarrow$ Uncertainty is mix-dependent<p></p>
 
 </div>
 </div>
@@ -12236,7 +12242,9 @@ $\Rightarrow$ Still estimating aligned sources rather than complying with the ma
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The sources are estimated through Bayes theorem as $s\mid x=\sum_c \pi(c\mid x)\mathcal{N}(s\mid \mu_{c\mid x}, \sigma_{\mid x})$
-<img src="figures/nocode/fig_beadsdemo3.svg"></p>
+<img src="figures/nocode/fig_beadsdemo3.svg">
+$\Rightarrow$ Posterior is tractable, estimates consistent with the magnitude prior<p>
+$\Rightarrow$ Uncertainty is mix-dependent<p></p>
 
 </div>
 </div>
@@ -12246,7 +12254,9 @@ $\Rightarrow$ Still estimating aligned sources rather than complying with the ma
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>The sources are estimated through Bayes theorem as $s\mid x=\sum_c \pi(c\mid x)\mathcal{N}(s\mid \mu_{c\mid x}, \sigma_{\mid x})$
-<img src="figures/nocode/fig_beadsdemo4.svg"></p>
+<img src="figures/nocode/fig_beadsdemo4.svg">
+$\Rightarrow$ Posterior is tractable, estimates consistent with the magnitude prior<p>
+$\Rightarrow$ Uncertainty is mix-dependent<p></p>
 
 </div>
 </div>
@@ -12255,15 +12265,17 @@ $\Rightarrow$ Still estimating aligned sources rather than complying with the ma
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="Conclusion:-The-beads-model">Conclusion: The beads model<a class="anchor-link" href="#Conclusion:-The-beads-model">&#182;</a></h1><h3 id="Core-advantages">Core advantages<a class="anchor-link" href="#Core-advantages">&#182;</a></h3><ul>
+<h1 id="Conclusion:-The-beads-model">Conclusion: The beads model<a class="anchor-link" href="#Conclusion:-The-beads-model">&#182;</a></h1><h2 id="Core-advantages">Core advantages<a class="anchor-link" href="#Core-advantages">&#182;</a></h2><ul>
 <li>Complex random variables with approximately known magnitudes</li>
-<li>Sums of beads sources is a GMM<p></li>
-<li>Separation is easy as GMM inference<p></li>
+<li>Sums of beads sources is a GMM</li>
+<li>Separation is easy as GMM inference</li>
 </ul>
-<h3 id="To-go-further">To go further<a class="anchor-link" href="#To-go-further">&#182;</a></h3><ul>
+<h2 id="To-go-further">To go further<a class="anchor-link" href="#To-go-further">&#182;</a></h2><ul>
 <li>Generalizes easily to multichannel</li>
 <li>Shared variances for the beads $\Rightarrow$ computational savings</li>
 </ul>
+<h2 id="Source-code-for-this-presentation">Source code for this presentation<a class="anchor-link" href="#Source-code-for-this-presentation">&#182;</a></h2>
+<p>https://github.com/aliutkus/beads-presentation
 
 </div>
 </div>
@@ -12292,7 +12304,9 @@ require(
             progress: true,
             history: true,
 
-            transition: "slide",
+            transition: "none",
+            width: 1200,
+            height: 750,
 
             // Optional libraries used to extend on reveal.js
             dependencies: [
