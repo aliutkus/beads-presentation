@@ -3,18 +3,14 @@ Presentation for the paper `Audio source separation with magnitude priors: the B
 
 The presentation is available [online](https://aliutkus.github.io/beads-presentation/)
 
-## References
-If you are using this model or this stuff for your research, please mention the following paper:
-> @inproceedings{liutkus2018beads,
->  title={Audio source separation with magnitude priors: the BEADS model},
->  author={Liutkus, Antoine and Rohlfing, Christian and Deleforge, Antoine},
->  booktitle={International Conference on Acoustics, Speech, and Signal Processing (ICASSP)},
->  year={2018}
-}
+## Installation
 
-The paper is available as a PDF [here](https://hal.inria.fr/hal-01713886/document)
+### Checkout
 
-## Installation for the source code
+Be careful to include `reveal.js` in the cloning if you want to try the presentation offline mode. This is done by adding the `--recurse-submodules` in the `git clone` command.
+
+### Interactive jupyter
+
 Through conda:
 > conda env create -f environment.yml
 
@@ -28,3 +24,15 @@ Which will open a browser. The presentation is in the `presentation.ipynb` file.
 ## Running the presentation
 
 I am using the `RISE` framework. For some reason, it only works well on chromium for me, not firefox that has some cache problems.
+
+
+## References
+If you are using this model or this stuff for your research, please mention the following paper:
+> @inproceedings{liutkus2018beads,
+>  title={Audio source separation with magnitude priors: the BEADS model},
+>  author={Liutkus, Antoine and Rohlfing, Christian and Deleforge, Antoine},
+>  booktitle={International Conference on Acoustics, Speech, and Signal Processing (ICASSP)},
+>  year={2018}
+}
+
+The paper is available as a PDF [here](https://hal.inria.fr/hal-01713886/document)
