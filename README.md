@@ -1,7 +1,9 @@
 # beads-presentation
 Presentation for the paper `Audio source separation with magnitude priors: the BEADS model `
 
-## Installation
+The presentation is available [online](https://aliutkus.github.io/beads-presentation/)
+
+## Installation for the source code
 Through conda:
 > conda env create -f environment.yml
 
@@ -14,4 +16,4 @@ Which will open a browser. The presentation is in the `presentation.ipynb` file.
 
 ## Running the presentation
 
-I am using the `RISE` framework.
+I am using the `RISE` framework. For some reason, it only works well on chromium for me, not firefox that has some cache problems.
