@@ -2,14 +2,16 @@
 Presentation for the paper `Audio source separation with magnitude priors: the BEADS model `
 
 ## Installation
-Use `pipenv shell`
-you may have to manually activate the extensions configurations to jupyter notebook by entering the following lines from within the `pipenv` shell:
+Through conda:
+> conda env create -f environment.yml
 
-> jupyter contrib nbextension install --user
-> jupyter nbextensions_configurator enable --user
 
 Then, you can run the jupyter console:
 
 > jupyter console
 
-Which will open a browser. From there, you may modify the extensions by going to the URL `<baseURL>/nbextensions`
+Which will open a browser. The presentation is in the `presentation.ipynb` file. Source code for the model is in the `src/beads.py` file. Note this is not optimized for speed, rather for educational purposes. I should create some optimized version some time.
+
+## Running the presentation
+
+I am using the `RISE` framework.
