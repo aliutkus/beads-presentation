@@ -137,5 +137,4 @@ dependencies:
     - pipenv==11.9.0
     - virtualenv==15.2.0
     - virtualenv-clone==0.3.0
-prefix: /home/antoine/anaconda3/envs/beads-presentation
 
