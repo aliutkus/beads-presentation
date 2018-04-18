@@ -11,11 +11,15 @@ Be careful to include `reveal.js` in the cloning if you want to try the presenta
 
 ### Interactive jupyter
 
-Through conda:
+Hopefully, this should work through conda. Go to the presentation directory, then create the `beads-presentation` environment through:
 > conda env create -f environment.yml
 
+then, activate this environment:
+* Windows: `activate beads-environment`
+* max/linux: `source activate beads-environment`
 
-Then, you can run the jupyter notebook:
+If that does not work, you will unfortunately have to install the dependencies manually...
+In any case, just run the jupyter notebook:
 
 > jupyter notebook
 
@@ -24,6 +28,8 @@ Which will open a browser. The presentation is in the `presentation.ipynb` file.
 ## Running the presentation
 
 I am using the `RISE` framework. For some reason, it only works well on chromium for me, not firefox that has some cache problems.
+
+There is some issue that is not fixed yet, and that is displaying a warning: `nbagg.transparent is deprecated and ignored. Use figure.facecolor instead.`. You can fix this issue using the trick [https://github.com/matplotlib/jupyter-matplotlib/issues/41#issuecomment-377339581](there). 
 
 
 ## References
